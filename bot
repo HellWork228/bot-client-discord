@@ -1,0 +1,25 @@
+import discord
+from random_1 import gen_pass
+# Переменная intents - хранит привилегии бота
+intents = discord.Intents.default()
+# Включаем привелегию на чтение сообщений
+intents.message_content = True
+# Создаем бота в переменной client и передаем все привелегии
+client = discord.Client(intents=intents)
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('!паника'):
+        await message.channel.send("ребят, давайте без паники, пожалуйста!")
+    elif message.content.startswith('!привет'):
+        await message.channel.send("Привет, я чат-бот panika! \nЯ могу много чего, можешь это узнать командой: \n!!panika")
+    elif message.content.startswith('!пароль'):
+        await message.channel.send(gen_pass(10))
+    elif message.content.startswith('!panika'):
+        await message.channel.send("Ты попал в раздел правил!")
+    else:
+        await message.channel.send(message.content)
+
+client.run("MTEwOTM4NDUyNTkzNjU5NDk4Ng.GNgj-N.mc9NsO_ZCpf_DdZQRwMbhAfQ8gSS_ikI0TJuiM")
